@@ -25,7 +25,7 @@ lo haremos notar en su momento.
   - [Scripts, funciones y parametros](#scripts-funciones-y-parametros)
 - [The POSIX world 🪐](#the-posix-world-)
   - [Sustitución o expansión de variables](#sustitución-o-expansión-de-variables)
-  - [Variables espciales expandidas por la shell](#variables-espciales-expandidas-por-la-shell)
+  - [Variables especiales expandidas por la shell](#variables-especiales-expandidas-por-la-shell)
   - [Variables de ambiente](#variables-de-ambiente)
   - [Sustitución de shell // sub-shell](#sustitución-de-shell--sub-shell)
   - [Exportar variables](#exportar-variables)
@@ -115,10 +115,10 @@ de ello adelante.
 
 ```sh
 FOO='No es una cadena vacía'
-if [ -n $FOO ]; then
-    echo $FOO
+if [ -n "${FOO}" ]; then
+  echo $FOO
 else
-    echo 'La variable FOO está vacía'
+  echo 'La variable FOO está vacía'
 fi
 ```
 
@@ -127,7 +127,7 @@ fi
 ```sh
 FOO=$(( RANDOM % 20 ))
 echo $FOO
-case $FOO in
+case "${FOO}" in
   1*)
     echo 'Este número inicia con 1'
     ;;
@@ -167,6 +167,12 @@ done
 ```sh
 for i in 'uno' 'dos' 'tres'; do
     echo $i
+done
+
+# Lo siguiente corre en shells que no sean sh
+ARR=("cat" "dog" "mouse" "frog")
+for str in ${ARR[@]}; do
+  echo $str
 done
 ```
 
@@ -208,7 +214,7 @@ No utilizar shell expasions para manejar valores estructurados como `json`, es
 mejor delegar esto a una herramienta especializada como
 [jq](https://stedolan.github.io/jq/)
 
-### Variables espciales expandidas por la shell
+### Variables especiales expandidas por la shell
 
 - `~` es equivalente a utilizar la variable de entorno `$HOME`
 - `$?` el "status code" más reciente

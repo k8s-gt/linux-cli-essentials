@@ -1,5 +1,4 @@
 #!/bin/bash
-# shellcheck disable=SC2004
 
 OPERACION="${1}"
 OPERANDO_1="${2}"
@@ -21,13 +20,12 @@ if [ -z "${OPERACION}" ]; then
   exit 1
 fi
 
-
 case $OPERACION in
   sum*)
-    echo $(( $OPERANDO_1 + $OPERANDO_2 ))
+    echo (( OPERANDO_1 + OPERANDO_2 ))
     ;;
   resta*)
-    echo $(( $OPERANDO_1 - $OPERANDO_2 ))
+    echo (( OPERANDO_1 - OPERANDO_2 ))
     ;;
   cont*)
     if [ -z "${OPERANDO_2}" ]; then
@@ -42,7 +40,7 @@ case $OPERACION in
 
     while [ "${OPERANDO_1}" -le "${OPERANDO_2}" ]; do
       echo "${OPERANDO_1}"
-      OPERANDO_1=$(( $OPERANDO_1 + 1 ))
+      OPERANDO_1=$(( OPERANDO_1 + 1 ))
     done
     ;;
   *)
