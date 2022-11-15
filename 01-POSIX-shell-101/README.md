@@ -24,14 +24,15 @@ lo haremos notar en su momento.
     - [for](#for)
   - [Scripts, funciones y parametros](#scripts-funciones-y-parametros)
 - [The POSIX world 🪐](#the-posix-world-)
+  - [Greeter](#greeter)
   - [Sustitución o expansión de variables](#sustitución-o-expansión-de-variables)
   - [Variables especiales expandidas por la shell](#variables-especiales-expandidas-por-la-shell)
   - [Variables de ambiente](#variables-de-ambiente)
-  - [Sustitución de shell // sub-shell](#sustitución-de-shell--sub-shell)
   - [Exportar variables](#exportar-variables)
   - [Manejo de flujos de datos](#manejo-de-flujos-de-datos)
     - [Heredocs](#heredocs)
-  - [Lectura de inputs](#lectura-de-inputs)
+    - [Leer archivos línea a línea](#leer-archivos-línea-a-línea)
+  - [Sustitución de shell y sub-shell](#sustitución-de-shell-y-sub-shell)
   - [Flujo de ejecución](#flujo-de-ejecución)
   - [Manejo de señales](#manejo-de-señales)
   - [Utilidades](#utilidades)
@@ -182,6 +183,16 @@ Ver archivo `calculadora.sh`
 
 ## The POSIX world 🪐
 
+### Greeter
+
+```sh
+FOO=''
+echo $FOO
+
+read -p 'Saludar a: ' FOO
+echo "Hola ${FOO}"
+```
+
 ### Sustitución o expansión de variables
 
 Las POSIX shells pueden hacer multiples operaciones sobre los valores que una
@@ -279,20 +290,6 @@ ls -1 $(echo $PATH | tr ':' ' ')| sort | uniq | wc -l
 
 Ver más en el [manual](https://www.gnu.org/software/bash/manual/html_node/Bourne-Shell-Variables.html)
 
-### Sustitución de shell // sub-shell
-
-```sh
-# Uso antiguo
-FECHA=`date`
-echo $FECHA
-
-# Uso sugerido
-FECHA=$(date)
-echo $FECHA
-```
-
-Aclaración. Los comandos `sort`, `uniq`, `wc` y `date` **no** son built-in.
-
 ### Exportar variables
 
 El comando `export` nos permite exportar valores para que otros proceso con el
@@ -353,7 +350,7 @@ echo "$(</tmp/ejemplo.log)"
 echo 'Hola mundo' | tr 'o' '-'
 ```
 
-Aclarción. `cat` y `tr` **no** es un built-in command.
+Aclaración. `cat` y `tr` **no** son built-in commands.
 
 
 #### Heredocs
@@ -367,21 +364,9 @@ $FOO
 EOF
 ```
 
-Aclarción. `cat` **no** es un built-in command.
+Aclaración. `cat` **no** es un built-in command.
 
-### Lectura de inputs
-
-El comando `read` lee el STDIN hasta que encuentra un `$IFS`, por lo general es
-un `\n`.
-
-```sh
-FOO=''
-echo $FOO
-
-# leer una variable
-read -p 'Escriba cualquier cosa: ' FOO
-echo $FOO
-```
+#### Leer archivos línea a línea
 
 ```sh
 # Generaremos un archivo de ejemplo
@@ -392,6 +377,31 @@ while read -r linea; do
   echo "Leído: $linea";
 done < /tmp/comandos.log
 ```
+
+### Sustitución de shell y sub-shell
+
+```sh
+# Uso antiguo
+FECHA=`date`
+echo $FECHA
+
+# Uso sugerido
+FECHA=$(date)
+echo $FECHA
+```
+
+La sub-shell es similar, inclusive en sintaxis `()`. La diferencia es que la
+sub-shell actua como solo un proceso, mientras que la sustitución como si fuera
+una expasión de variable "especial"
+
+```sh
+echo $(date; echo '') | wc -l
+(date; echo '' ) | wc -w
+```
+
+Aclaraciones:
+  - `wc` y `date` **no** son built-in commands
+  - el uso de `;` se verá en la siguiente sección
 
 ### Flujo de ejecución
 
@@ -431,8 +441,10 @@ ejecución de nuestro script
 
 ```sh
 cat << EOF > /tmp/ejemplo-trap.sh
+#!/bin/bash
+
 setup_tmp() {
-  TMP_DIR=$(mktemp -d -t sync-contrib-graph.XXXXXXXXXX)
+  TMP_DIR=$(mktemp -d)
 
   cleanup() {
     code=$?
@@ -447,14 +459,15 @@ setup_tmp() {
 }
 
 setup_tmp
-cd \$TMP_DIR
-pwd
-
+echo "Can't touch this" > \$TMP_DIR/mc-hammer.log
+cd \$TMP_DIR && pwd && ls -talh
 EOF
 
 chmod +x /tmp/ejemplo-trap.sh
 /tmp/ejemplo-trap.sh
 ```
+
+Aclaración. `mktemp` **no** es un built-in command.
 
 ### Utilidades
 
@@ -467,6 +480,7 @@ de uso frecuente
 - `history` Imprime todos los comandos que la shell ha ejecutado hasta el momento
 - `alias` Permite crear "alias" a los comandos
 - `getops` Es utilizado dentro de los scripts para soportar "banderas"
+- `&`, `fg` y `wait` Son utilizados para enviar un proceso a background, listar procesos en background y esperar por que todos los procesos en background terminen respectivamente.
 - `help` (bash only)
 
 ### Ejemplos
@@ -482,7 +496,7 @@ comunidad de Kubernetes Guatemala
 
 - [Numeric comparation operators](https://opensource.com/article/19/10/programming-bash-logical-operators-shell-expansions#numeric-comparison-operators)
 - [Shell substitutions simply explained](http://mywiki.wooledge.org/CommandSubstitution)
-- [Bash manual - Shell expantions](https://www.gnu.org/software/bash/manual/bash.html#Shell-Expansions)
+- [Bash manual - Shell expansions](https://www.gnu.org/software/bash/manual/bash.html#Shell-Expansions)
 - [Bash manual - Special parameters](https://www.gnu.org/software/bash/manual/html_node/Special-Parameters.html)
 - [Bash manual - Bash environment variables](https://www.gnu.org/software/bash/manual/html_node/Bash-Variables.html)
 - [POSIX specification up-to-date](https://pubs.opengroup.org/onlinepubs/9699919799/)
