@@ -19,10 +19,13 @@ built-in shell commands.
     - [Heredocs](#heredocs)
     - [Leer archivos línea a línea](#leer-archivos-línea-a-línea)
   - [Sustitución de shell y sub-shell](#sustitución-de-shell-y-sub-shell)
+    - [El comando eval](#el-comando-eval)
   - [Flujo de ejecución](#flujo-de-ejecución)
   - [Manejo de señales](#manejo-de-señales)
   - [Utilidades](#utilidades)
-  - [Ejemplos](#ejemplos)
+  - [Scripts, funciones y parametros](#scripts-funciones-y-parametros)
+    - [Argumentos posicionales](#argumentos-posicionales)
+    - [Otros ejemplos](#otros-ejemplos)
 - [Recursos externos para seguir aprendiendo](#recursos-externos-para-seguir-aprendiendo)
 
 ## The POSIX world 🪐
@@ -251,6 +254,24 @@ Aclaraciones:
   - `wc` y `date` **no** son built-in commands
   - el uso de `;` se verá en la siguiente sección
 
+#### El comando eval
+
+>  Read ARGs as input to the shell and execute the resulting command
+
+A simple vista, uno podría pensar que es lo mismo que una sustitución de shell,
+sin embargo `eval` es usado cuando se necesita interpretar la salida de un
+proceso y queremos que este mismo se ejecute.
+
+Usalmente se utiizan en comando que levantan "deamons" o tienen interacciones al
+fondo como `ssh-agent` por ejemplo.
+
+```sh
+$ ssh-agent
+SSH_AUTH_SOCK=<a/path>; export SSH_AUTH_SOCK;
+SSH_AGENT_PID=<a PID>; export SSH_AGENT_PID;
+echo Agent pid <a PID>;
+```
+
 ### Flujo de ejecución
 
 Las POSIX shell te permiten manejar el flujo de como se ejecutan los procesos:
@@ -331,7 +352,25 @@ de uso frecuente
 - `&`, `fg` y `wait` Son utilizados para enviar un proceso a background, listar procesos en background y esperar por que todos los procesos en background terminen respectivamente.
 - `help` (bash only)
 
-### Ejemplos
+### Scripts, funciones y parametros
+
+Haremos una demostración juntos durante la charla, aún así la solución la puedes
+encontrar en `gh-lookup.sh`.
+
+Pero antes, abordemos unos cuantos símbolos o comandos que no hemos visto antes
+
+- `#!` Conocido como "shebang". Cuando viene en la primer línea del script le
+  indica al sistema cual es el interprete preferido para lo que viene a
+  continuación.
+- `/bin/bash -e` Está pasando la bandera `-e` al interprete, el cual provoca que
+  se detenga cuando un comando returne un código de estado diferente a 0.
+
+#### Argumentos posicionales
+
+Los scripts y las funciones reciben los parametros que se pasaron al momento de
+ser invocados en variables especiales llamadas "posicionales".
+
+#### Otros ejemplos
 
 Puede ver estos conceptos en uso en las siguientes utilerías escritas por la
 comunidad de Kubernetes Guatemala
@@ -341,9 +380,9 @@ comunidad de Kubernetes Guatemala
 
 ## Recursos externos para seguir aprendiendo
 
-- [Shell substitutions simply explained](http://mywiki.wooledge.org/CommandSubstitution)
 - [Bash manual - Shell expansions](https://www.gnu.org/software/bash/manual/bash.html#Shell-Expansions)
 - [Bash manual - Special parameters](https://www.gnu.org/software/bash/manual/html_node/Special-Parameters.html)
 - [Bash manual - Bash environment variables](https://www.gnu.org/software/bash/manual/html_node/Bash-Variables.html)
+- [Autoconf Manual - Limitations of built-ins](https://www.gnu.org/software/autoconf/manual/autoconf-2.69/html_node/Limitations-of-Builtins.html)
 - [POSIX specification up-to-date](https://pubs.opengroup.org/onlinepubs/9699919799/)
 - [POSIX shell language specification](https://pubs.opengroup.org/onlinepubs/9699919799/xrat/V4_xcu_chap02.html)
