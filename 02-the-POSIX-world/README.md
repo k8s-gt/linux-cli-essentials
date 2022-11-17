@@ -52,8 +52,10 @@ unset UNSET_VAR
 FOO='Hola mundo'
 
 # Valores fallback o checks
-echo ${UNSET_VAR-Valor defecto}
-echo ${FOO+Sobre escrito cuando no está vacío}
+echo "${UNSET_VAR-Valor defecto}"
+echo "${FOO+Sobre escrito cuando no está vacío}"
+
+BAR="${UNSET_VAR-Nothing to do here}"
 
 # Substrings
 echo "Substring: ${FOO:5}"
@@ -62,12 +64,15 @@ echo "Substring: ${FOO:5:1}"
 # Longitud de una cadena
 echo "Longitud: ${#FOO}. Cadena: ${FOO}"
 
+# Esto es overkill
+echo ${FOO} | sed -e 's/o/u/g'
+
 # Sustitución de cadenas
 FOO='1Hola mundo!1!!1!1'
-echo ${FOO/1/_}   # Sustituir primer aparición
-echo ${FOO//1/_}  # Sustituir todas las apariciones
-echo ${FOO/#1/_}  # Sustituir solo si está al inicio
-echo ${FOO/%1/_}  # Sustituir solo si está al final
+echo "${FOO/ /_}"   # Sustituir primer aparición sin importar posición
+echo "${FOO//1/_}"  # Sustituir todas las apariciones
+echo "${FOO/#1/_}"  # Sustituir solo si está al inicio
+echo "${FOO/%1/_}"  # Sustituir solo si está al final
 ```
 
 Se sugiere **no** depender de shell expasions para manejar valores estructurados
@@ -181,9 +186,9 @@ Las POSIX shell abstraen el manejo de estos flujos por medio de los siguientes s
 echo 'Hola mundo'
 
 # Ya no veremos el mensaje al redirigir el STDOUT del echo
-echo 'Hola mundo' > /tmp/ejemplo.log
+echo 'Hola mundo' >/tmp/ejemplo.log
 # Podemos hacer "append" al usar >>
-echo 'Esta es la línea 2' >> /tmp/ejemplo.log
+echo 'Esta es la línea 2' >>/tmp/ejemplo.log
 
 # Podemos verificar el archivo usando cat
 cat /tmp/ejemplo.log
@@ -197,12 +202,12 @@ echo 'Hola mundo' | tr 'o' '-'
 
 Aclaración. `cat` y `tr` son [GNU core utilities](https://www.gnu.org/software/coreutils/).
 
-
 #### Heredocs
 
 ```sh
 FOO='Soporta expansiones de variables'
-cat << EOF > ./archivo.txt
+
+cat << EOF >/tmp/archivo.txt
 Esto es un heredoc :D
 
 $FOO
@@ -218,12 +223,12 @@ Aclaración. `cat` es una [GNU core utility](https://www.gnu.org/software/coreut
 ls -1 $(echo $PATH | tr ':' ' ')| sort | uniq | wc -l
 
 # Ahora escribamos los primeros diez en un archivo
-ls -1 $(echo $PATH | tr ':' ' ')| sort | uniq | tail -10 > /tmp/comandos.log
+ls -1 $(echo $PATH | tr ':' ' ')| sort | uniq | tail -10 >/tmp/comandos.log
 
 # leeremos el archivo de ejemplo línea por línea
 while read -r linea; do
   echo "Encontré: $linea";
-done < /tmp/comandos.log
+done </tmp/comandos.log
 ```
 
 Aclaración. `sort`, `uniq`, `wc` y `tail` son [GNU core utilities](https://www.gnu.org/software/coreutils/).
@@ -247,7 +252,7 @@ una expasión de variable "especial"
 
 ```sh
 echo $(date; echo '') | wc -l
-(date; echo '' ) | wc -w
+(date; echo '' ) | wc -l
 ```
 
 Aclaraciones:
@@ -266,10 +271,13 @@ Usalmente se utiizan en comando que levantan "deamons" o tienen interacciones al
 fondo como `ssh-agent` por ejemplo.
 
 ```sh
-$ ssh-agent
+# ssh-agent imprime en STDOUT las variables asociadas al daemon process
+ssh-agent
 SSH_AUTH_SOCK=<a/path>; export SSH_AUTH_SOCK;
 SSH_AGENT_PID=<a PID>; export SSH_AGENT_PID;
 echo Agent pid <a PID>;
+# Al hacer eval del STDOUT logramos exportar las variables que ssh-agent imprimió
+$ eval $(ssh-agent)
 ```
 
 ### Flujo de ejecución
@@ -279,7 +287,7 @@ Las POSIX shell te permiten manejar el flujo de como se ejecutan los procesos:
 - `||` Ejecuta el siguiente proceso, cuando el primero returna un código de estado que no sea `0`
 - `&&` Ejecuta el siguiente proceso, si y solo si el primero returna un código de estado `0`
 - `;` Ejecuta el siguiente proceso, sin importar el código de estado del primero
-- `:` Operador `noop`.
+- `:` Operador "noop" o "null". No hace nada y retorna código de estado `0`
 
 
 ```sh
@@ -290,16 +298,16 @@ Las POSIX shell te permiten manejar el flujo de como se ejecutan los procesos:
 (exit 0) && echo ':)'
 
 # Ejecutar el segundo sin importar el estado del primero
-(exit 1) || echo ':)'
+(exit 1); echo ':)'
 
 # "nada pasó acá"
 :
 
 # Caso especial de :
-FOO='valor1'
-: ${FOO:=valor2}
+BAZ='valor1'
+: ${BAZ:=valor2}
 echo $?
-echo $FOO
+echo $BAZ
 ```
 
 ### Manejo de señales
@@ -309,7 +317,7 @@ es útil cuando queremos hacer limpieza de elementos temporales al terminar la
 ejecución de nuestro script
 
 ```sh
-cat << EOF > /tmp/ejemplo-trap.sh
+cat << EOF >/tmp/ejemplo-trap.sh
 #!/bin/bash
 
 setup_tmp() {

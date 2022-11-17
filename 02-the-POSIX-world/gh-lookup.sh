@@ -18,10 +18,12 @@ setup_tmp() {
   cleanup() {
     code=$?
     set +e
+    # Clear traps from EXIT
     trap - EXIT
     rm -rf "${TMP_DIR}"
     exit $code
   }
+  # Trap INT SIGNAL and EXIT "event"
   trap cleanup INT EXIT
 
   export TMP_DIR
@@ -30,14 +32,14 @@ setup_tmp() {
 function main () {
   [ -e "${TMP_DIR}" ] || setup_tmp
 
-  for gh_handle in "$@"; do
-    curl -L "https://github.com/users/${gh_handle}/contributions?tab=overview&from=${TARGET_YEAR}-01-01T00:00:00.000+00:00" 2>/dev/null | \
+  for GH_HANDLE in "$@"; do
+    curl -L "https://github.com/users/${GH_HANDLE}/contributions?tab=overview&from=${TARGET_YEAR}-01-01T00:00:00.000+00:00" 2>/dev/null | \
       grep -v 'data-level="0"' | \
       grep -c 'data-date' | \
-      xargs printf '%s %s\n' "${gh_handle}" >>"${TMP_DIR}"/carry.txt
+      xargs echo "${GH_HANDLE} " >>"${TMP_DIR}/carry.txt"
   done
 
-  sort -n  -r -k2 <"${TMP_DIR}"/carry.txt
+  sort -n -r -k2 <"${TMP_DIR}"/carry.txt
 }
 
 while getopts 'hy:' c; do
@@ -57,4 +59,10 @@ while getopts 'hy:' c; do
 done
 
 shift $((OPTIND - 1))
+
+if [ "${#@}" -eq 0 ]; then
+  usage
+  exit 1
+fi
+
 main "$@"
