@@ -22,10 +22,10 @@ fi
 
 case $OPERACION in
   sum*)
-    echo (( OPERANDO_1 + OPERANDO_2 ))
+    echo $(( OPERANDO_1 + OPERANDO_2 ))
     ;;
   resta*)
-    echo (( OPERANDO_1 - OPERANDO_2 ))
+    echo $(( OPERANDO_1 - OPERANDO_2 ))
     ;;
   cont*)
     if [ -z "${OPERANDO_2}" ]; then
