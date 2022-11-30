@@ -606,3 +606,21 @@ h1 {
 }
 </style>
 
+
+---
+layout: center
+---
+# Slides https://mvlsqz.github.io/linux-cli-essentials/03-linux-filesystem-tree/
+
+<style>
+h1 {
+  background-color: #c31432;
+  background-image: linear-gradient(45deg, #c31410 40%, #240b36 20%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
+
