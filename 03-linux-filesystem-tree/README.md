@@ -1,6 +1,6 @@
 ---
 theme: default
-background: /wallhaven-nmrl3k.jpg
+background: https://source.unsplash.com/collection/94734566/1920x1080
 class: text-center
 highlighter: shiki
 lineNumbers: false
@@ -29,6 +29,8 @@ The last comment block of each slide will be treated as slide notes. It will be 
 -->
 
 ---
+layout: center
+---
 
 # Que es FHS
 **Filesystem Hierchy Standard** 
@@ -39,11 +41,6 @@ The last comment block of each slide will be treated as slide notes. It will be 
 -  Compatibilidad entre sistemas Unix-Like
 -  Definicion de directorios principales y sus contenidos
 -  No son son obligatorias pero recomendadas
-
-<!--
-You can have `style` tag in markdown to override the style for the current page.
-Learn more: https://sli.dev/guide/syntax#embedded-styles
--->
 
 <style>
 h1 {
@@ -70,10 +67,23 @@ Muchas distribuciones siguen el stadard parcialmente siguiendo los objetivos de 
 | <kbd>/home</kbd>| Directorio para usuarios |
 | <kbd>/bin</kbd> <kbd>/sbin</kbd> |  Directorio para archivos ejecutables |
 | <kbd>/usr</kbd> | Componentes no esenciales para el sistema operativo (cont..) |
-| <kbd>/etc</kbd> | Archvos de configuracion globales |
-| <kbd>/opt </kbd> | Directorio opcional, usualmente para applicaciones instaladas "manualmente" |
+| <kbd>/etc</kbd> | Archivos de configuracion globales |
+| <kbd>/opt </kbd> | Directorio opcional, usualmente para aplicaciones instaladas "manualmente" |
 | <kbd>/lib</kbd> <kbd>/lib32</kbd> <kbd>/lib64</kbd> | Directorio para librerias |
 | <kbd>/var</kbd> | Directorio para datos variables |
+
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
+
 ---
 
 # FHS 101, pt2
@@ -90,18 +100,27 @@ Muchas distribuciones siguen el stadard parcialmente siguiendo los objetivos de 
 | <kbd>/tmp </kbd> | Tierra de nadie :) |
 | <kbd>/root </kbd> | Directorio exclusivo para el usuario root |
 
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
 
 ---
-layout: image-right
-image: wallhaven-nmrl3k.jpg
+layout: center
 ---
 
 # / root filesystem
 
 Donde todo empieza
 
-```bash {2|2-9|9-18}
-tree -d -L 1 /
+```bash {1|all}
 /
 ├── /bin
 ├── /dev
@@ -119,8 +138,22 @@ tree -d -L 1 /
 ├── /usr
 └── /var
 ```
----
 
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
+
+---
+layout: center
+---
 # ... Una pausa
 
 ## Todo es un archivo
@@ -142,9 +175,21 @@ Lo que cambia es el tipo de archivo
 - Archivos File descriptor
 - ...
 
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
+
+
 ---
-layout: image-right
-image: matrix.jpg
+layout: center
 ---
 
 # /home
@@ -157,8 +202,20 @@ Tu pedacito de tierra en la matrix esta alojado aqui
 - Esta pensado para almacenar archivos personales
 - Aqui puedes tener tus `dotfiles`
 
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
 
 ---
+layout: center
 highlighter: shiki
 ---
 
@@ -169,9 +226,7 @@ highlighter: shiki
 .
 ..
 .ash_history
-bin
 ```
-
 ## Que pasa con los permisos?
 
 ```bash {1|2|3}
@@ -190,11 +245,20 @@ s = SUID bit
 
 w = escritura (**w**rite)
 
-x = ejecucion (e**x**cution)
+x = ejecucion (e**x**ecution)
 
----
-layout: image-left
-image: matrix.jpg
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
+
 ---
 
 # /bin and /sbin
@@ -205,10 +269,19 @@ Aqui se almacenan binarios fundamentales para el sistema
 ## /sbin
 Aqui tambien se guardan binarios fundamentales ... xD
 
-
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
 ---
-layout: image-right
-image: matrix.jpg
+layout: center
 ---
 
 # /usr
@@ -220,24 +293,43 @@ image: matrix.jpg
 | <kbd>/usr/bin</kbd> | Directorio standar para binarios |
 | <kbd>/usr/sbin</kbd> | Directorio para binarios que necesitan permisos de root | 
 | <kbd>/usr/local</kbd> | Estructura para binarios compilados localmente | 
-| <kbd>/usr/{src,include}</kbd> | Archivos de codigo de kernel y headers | 
+| <kbd>/usr/{src,include}</kbd> | Archivos de codigo fuente del kernel o headers | 
 | <kbd>/usr/share</kbd> | Archivos que no estan atados a la arquitectura, iconos, documentacion ... | 
 
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
 ---
-layout: image-left
-image: matrix.jpg
+layout: center
 ---
 
 # /etc
 Configuraciones globales para el sistema
 
-Si una aplicacion va a estar disponible para todos los usuarios del sistema, se recomienda la configuracion de esta aplicacion se almacene aqui
+Si una aplicacion va a estar disponible para todos los usuarios del sistema, se recomienda que la configuracion de esta aplicacion se almacene en el directorio /etc
 
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
 ---
-layout: image-left
-image: matrix.jpg
+layout: center
 ---
-
 # /opt
 
 El directorio *opcional*
@@ -246,9 +338,20 @@ El directorio *opcional*
 - Software instalado manualmente
 - Etc..
 
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
+
 ---
-layout: image-left
-image: matrix.jpg
+layout: center
 ---
 
 # /lib /lib32 /lib64
@@ -257,11 +360,21 @@ Directorio para las librerias.
 
 - Binarios que son compartidos por aplicaciones ejecutables para tener cierta funcionalidad o acceso a recursos del sistema
 
----
-layout: image-left
-image: matrix.jpg
----
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
 
+---
+layout: center
+---
 # /var
 
 **var** es por que la data aqui es variable (es cambiante/dinamica)
@@ -271,13 +384,39 @@ image: matrix.jpg
 - Cola de mensajes
 - Se espera que el contenido del archivo se incremente
 
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
 ---
-
+layout: center
+---
 # /boot
 
 - Kernel compilado
 - Configuracion
 
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
+
+---
+layout: center
 ---
 
 # /sys
@@ -287,6 +426,20 @@ image: matrix.jpg
 - Desaparece al apagar el equipo
 - Se usa para obtener informacion sobre el sistema y sus componentes
 
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
+
+---
+layout: center
 ---
 
 # /dev
@@ -297,6 +450,20 @@ almacena todos los archivos especiales para interactuar con el hardware
 - archivos de tipo caracter
 - archivos de tipo bloque
 
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
+
+---
+layout: center
 ---
 
 # /proc
@@ -306,21 +473,76 @@ Almacena toda la informacion relacionada a los procesos que se estan ejecutando 
 
 - Esta conformado de pseudo-archivos con informacion acerca de los procesos y los recursos que esta utilizando
 
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
+
+---
+layout: center
 ---
 # /run
 
 Es un directorio temporal usado para ejecutar procesos en `stages` iniciales del arranque, donde es muy probable que el sistema de archvos /var/run no esta disponible
 
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
+---
+layout: center
 ---
 # /tmp
 En este directorio la aplicaciones almacenan informacion temporal para la sesion que se esta ejecutando
 
 - Desaparece al apagar el sistema
 
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
+
+---
+layout: center
 ---
 # /root
 El equivalente del home pero para el usuario root
 
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
+
+---
+layout: center
 ---
 
 # Una vision sobre como funciona el almacenamiento en disco
@@ -330,7 +552,19 @@ El equivalente del home pero para el usuario root
 - Que es un inodo
 - Que es un (hard/soft) link 
 
-
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
+---
+layout: center
 ---
 # El fin?
 
@@ -343,4 +577,32 @@ Necesitas saber mas, algunos terminos que podrias "googlear"
 - Demystifying Linux 101
 - A source about file system reflection on the physical hard drive
 
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
+
 ---
+layout: center
+---
+# Gracias
+
+<style>
+h1 {
+  background-color: #c31432;
+  background-image: linear-gradient(45deg, #c31410 40%, #240b36 20%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
+
