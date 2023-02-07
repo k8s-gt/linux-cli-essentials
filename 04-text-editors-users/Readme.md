@@ -219,6 +219,72 @@ VIM es un editor de texto que tiene multiple modos.
 - Modo vista: En este modo es posible realizar acciones o atajos
 - Modo  insertar: En este modo es cuando se puede escribir dentro del editor.
 ```bash
+apt-get install vim
+
+# Regresar a modo vista
+# ESC
+
+# Ir a modo insertar
+# i
+
+# Moverse en modo vista
+# h izq
+# j abajo
+# k arriba
+# l derecha
+
+
+# Moverse una palabra a la vez
+# w         Al inicio de la siguiente palabra
+# b         Al inicio de la palabra anterior
+# e         Al final de la siguiente palabra
+# ge        Al final de la palabra anterior
+
+# x         Eliminar caracter
+# x+n       Eliminar n caracteres
+
+# 0         Moverse al inicio de la linea
+# $         Moverse al final de la linea
+# :n        Ir a una linea en especifico
+
+# o         Add new line
+# D         Elimina todo hasta el final de linea
+# dw        Elimina la palabra donde esta el cursor
+# 3dw       Elimina tres palabras
+# dd        Elimina la linea actual
+
+# gg        Moverse al inicio del archivo
+# G         Moverse al final del archivo
+
+# yy        Copiar linea actual
+# p         Pegar linea actual
+# 3p        Pegar 3 veces
+
+# /yourtext Buscar texto
+#       n   Mover hacia adelante
+#       N   Mover hacia atras
+
+# :w        Guardar cambios
+# :q        Cerrar vim
+
+# r         Reemplazar caracter actual
+# R         Reemplazar desde el caracter actual.
+
+# J         Unir multiples lineas
+
+# A         Comenzar a escribir desde el final de la linea
+
+# C-f       Scroll down la pagina entera
+# C-b       Scroll up la pagina entera
+
+# Swap area is a file created by Vim to store buffer contents periodically. While editing file our changes may be lost because of any 
+#   reasons and Vim provides swap files to provide data recovery.
+# :Swapname
+
+# u                 Deshacer
+# Ctrl+r o :red     Rehacer
+
+
 # Atajos
 # Salir de VIM, sin guardar
 ESC + :q!
@@ -227,43 +293,26 @@ ESC + :wq!
 
 ```
 
-
-
-
-
-# Links
-- https://phoenixnap.com/kb/linux-man 
-
-
 # Manejo de usuarios
 
-/etc/passwd
-
-    User account information. 
-/etc/shadow
-    Secure user account information. 
-/etc/group
-    Group account information. 
-/etc/gshadow
-    Secure group account information. 
-/etc/default/useradd
-    Default values for account creation. 
-/etc/skel/
-    Directory containing default files. 
-/etc/login.defs
-    Shadow password suite configuration. 
+**Archivos importantes**
+- `/etc/passwd`:    User account information. 
+- `/etc/group` :    Group account information. 
 
 **adduser: Man page:** https://linux.die.net/man/8/adduser
 ```bash
 # 
-adduser user1
-adduser user2
+adduser hr1
+adduser dev1
+adduser hr2
+adduser dev2
 
 # Cambiar password local
 passwd
 
 # Cambiar password usuario
-passwd user2
+passwd hr1
+passwd dev1
 
 
 
@@ -279,15 +328,6 @@ usermod -s /bin/bash user2
 
 # Usuario puede cambiar consola
 chsh -s /bin/sh  
-
-
-
-```
-
-## Finger utility
-```bash
-apt-get install finger
-finger user1
 ```
 
 ## Grupos en linux
@@ -350,3 +390,8 @@ id -g javatpoint
 | rename |	To rename file. |
 
 ## Editar crudini
+
+
+
+# Links
+- https://phoenixnap.com/kb/linux-man 
