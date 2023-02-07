@@ -32,7 +32,7 @@ man -wa  grep
 
 **Man page:** https://linux.die.net/man/1/gedit
 
-gedit is the official text editor of the GNOME desktop environment. While aiming at simplicity and ease of use, gedit is a powerful general purpose text editor. It can be used to create and edit all kinds of text files. Gedit features a flexible plugin system which can be used to dynamically add new advanced features to gedit itself. 
+Gedit es el editor de texto oficial de los entornos de escritorio GNOME.  Si bien tiene como objetivo la simplicidad y la facilidad de uso, gedit es un poderoso editor de texto de propósito general. Se puede utilizar para crear y editar todo tipo de archivos de texto. Gedit presenta un sistema de complementos flexible que se puede usar para agregar dinámicamente nuevas funciones avanzadas a gedit.
 
 ```bash
 # Iniciar gedit
@@ -52,12 +52,13 @@ gedit example1.txt +265
 gedit example1.txt example2.txt
 ```
 
-### Habilitar plugins
+**Habilitar plugins**
 ```bash
 apt-get install gedit-plugins
 ```
-### Plugins interesantes
-- Translate: Traducir.
+
+**Plugins interesantes**
+- Translate: Traducir de ingles a español.
 - Embbebed terminal: Terminal en gedit
 - Find in files: Navegador de archivos
 - Join/Split lines: Une y separa lineas.
@@ -68,15 +69,18 @@ apt-get install gedit-plugins
 - Color picker: Muestra una tabla de colores e inserta el codigo hexadecimal.
 - Quick Highlight: Subraya todas las ocurrencias de la misma palabra.
 
-# Crear entorno de trabajo
+## Crear entorno de trabajo
 Descargar este repositorio y ejecutar los siguientes comandos bash:
 ```bash
 # Cambiar de directorio
 cd ./04-text-editors-users
 # Construir imagen de contenedor
 docker build -t session4 . 
-# Ejecutar contenedor. (La primera vez lleva un poco de tiempo.)
-docker run -it session4 bash
+# Detener y eliminar contenedor
+docker stop session4
+docker rm session4
+# Ejecutar contenedor. 
+docker run --name session4 -it session4 bash
 ```
 
 ## Nano
@@ -84,103 +88,49 @@ docker run -it session4 bash
 **Man page:** https://linux.die.net/man/1/nano
 
 ```bash
+apt-get install -y nano
+nano
+# CTRL + x  (Exit nano)
+nano example1.txt
 
+# CTRL = ^
+# M = ALT
 
+#^G     (F1)      Manual de nano
+#^X     (F2)      Salir de nano
+#^O     (F3)      Guardar camobios en disco
+#^R     (Ins)     Insertar contenido de otro archivo al archivo actual
+#^W     (F6)      Buscar una palabra en especifico
+#^\     (M-R)     Reemplazar una cadena
+#^K     (F9)      Cortar actual linea de texto
+#^U     (F10)     Pegar todas las lineas de texto cortadas.
+#^J     (F4)      Justificar bloque de texto
+#^C     (F11)     Mostrar la informacion del cursor.
+#^_     (M-G)     Ir a una linea y columan en especifico (fila, columna)
+#M-U              Deshacer la ultima operacion
+#M-E              Rehacer la ultima operacion de deshacer
+#M-A    (^6)      Comenzar seleccion de texto
+#M-6    (M-^)     Copiar linea actual (o region seleccionada) y se almacena en el clipboard.
+#^Q               Buscar palabra de retroceso
+#M-Q              Buscar siguiente ocurrencia hacia atras.
+#M-W              Buscar siguiente ocurrencia hacia adelante
+#^A     (Home)    Ir al inicio de la linea
+#^E     (End)     Ir al final de la linea.
+#^P     (Up)      Ir a la linea anterior
+#^N     (Down)    Ir a la siguiente linea
+#^Left  (M-Space) Regresar una palabra
+#^Right (^Space)  Avanzar una palabra
+#^Up    (M-7)     Ir al bloque de texto anterior
+#^Down  (M-8)     Ir al siguiente bloque de texto
+#M-3              Comentar/Descomentar la linea actual
+#M-Del            Eliminar linea actual
+#^S               Guardar cambios, sin confirmacion
+#M-N              Habilitar/deshabilitar numeracion.
 ```
 
 ## Emacs
-Emacs is one of the oldest and most versatile text editors. The GNU Emacs version was originally written in 1984 and is well known for its powerful and rich editing features. It can be customized and extended with different modes, enabling it to be used like an Integrated Development Environment (IDE) for programming languages such as Java, C, and Python.
-
-For those who have used both the Vi and the user-friendly nano text editors, Emacs presents itself as an in-between. Its strengths and features resemble those of Vi, while its menus, help files, and command-keys compare with nano.
-
-```bash
-apt-get install emacs
-# 2, 63
-# Ver mensaje de bienvenida
-emacs
-# Para moverse entre opciones presionar TAB.
-
-
-# C-<chr>  means hold the CONTROL key while typing the character <chr>
-#          Thus, C-f would be: hold the CONTROL key and type f.
-# M-<chr>  means hold the META or EDIT or ALT key down while typing <chr>.
-#          If there is no META, EDIT or ALT key, instead press and release the
-#          ESC key and then type <chr>.  We write <ESC> for the ESC key.
-
-# Cerrar C-x C-c
-# C-v show next page
-# M-v show previous page
-# C-l center the text, C-l mueve el texto donde esta el cursor al medio
-
-
-# Moverse en el texto
-# Flechas.
-# C-p linea anterior
-# C-b caracter a la derecha
-# c-f caracter a la isquierda
-# c-n siguiente linea
-# P for previous, N for next, B for backward and F for forward.  You
-
-
-# Mover por palabres
-# M-b palabra a la derecha
-# M-f palabra a la izquierda
-
-# Mover por lineas
-# C-a inicio
-# C-e end 
-
-# Mover por oraciones (Hasta el siguiente punto)
-# M-a   inicion
-# M-e fin
-
-# Mover al inicio y fin del archivo 
-# M-< Inicio
-# M-> Fin
-
-# C-g cancelar combinaciones
-
-
-
-<DEL> eliminar caracter antes del cursor
-C-d eliminar siguiente caracter despues del cursor
-
-M-<DEL> elimina la palabra antes del cursor
-M-d elimina la palabra siguiente al cursor
-
-C-k elimna desde el cursor hast el final de la linea
-M-k eliminar el resto del parrafor.
-
-
-ESC-ESC-ESC cancelar
-
-CTRL+Space CTRL+W Delete highlight
-
-CTRL / undo
-
-CTRL x  CTRL s guardar cambios
-
-CTRL x CTRL f cambiar buffer
-CTRL x CTRL b listar buffers
-# C-x 1 Eliminar otras ventanas, dejar solo 1.
-C X derecha
-C X izq
-C z exit
-
-C x 2 split window
-
-C M <Command> Move the bottom window
-C x o move the bottom window
-
-# Search 
-c s search  
-    C s next occurrence
-c r reverse search
-    C r
-```
-CTRL
-ALT
-ESC
+Emacs es uno de los editores de texto más antiguos y versátiles. La versión de GNU Emacs se escribió originalmente en 1984 y es bien conocida por sus potentes y ricas funciones de edición. Se puede personalizar y ampliar con diferentes modos, lo que permite utilizarlo como un entorno de desarrollo integrado (IDE) para lenguajes de programación como Java, C y Python.
+Para aquellos que han usado tanto Vi como los editores de texto nano fáciles de usar, Emacs se presenta como un intermedio. Sus fortalezas y características se asemejan a las de Vi, mientras que sus menús, archivos de ayuda y teclas de comando se comparan con las de nano.
 
 - Menu
     - Entrar al menu F10
@@ -198,10 +148,70 @@ ESC
         Version control
         Compare and merge files
         Games
-
 - Main buffer
 - status bar/mode line
 - Mini buffer
+
+```bash
+apt-get install emacs
+
+# Ver mensaje de bienvenida
+emacs
+
+# Para moverse entre opciones presionar TAB.
+# CTRL = C
+# M = ALT
+
+# C-<chr>  means hold the CONTROL key while typing the character <chr>
+# M-<chr>  means hold the META or EDIT or ALT key down while typing <chr>.
+
+
+# C-x C-c               Cerrar emacs
+# C-v                   Mostrar siguiente pagina
+# M-v                   Mostrar pagina anterior
+# C-l                   Centrar cursor.
+# C-p                   Moverse a la linea anterior
+# C-b                   Moverse a la derecha 
+# C-f                   Moverse a la izquierda 
+# C-n                   Moverse a la siguiente linea
+# M-b                   Moverse a la siguiente palabra
+# M-f                   Moverse a la palabra anterior.
+# C-a                   Moverse al inicio de la linea
+# C-e                   Moverse al final de la linea.
+# M-a                   Moverse al inicio del parrafo
+# M-e                   Moverse al final del parrafo
+# M-<                   Moverse al inicio del archivo
+# M->                   Moverse al final del archivo
+# C-g                   Cancelar combinaciones
+# C-x   u               Rehace cambio
+# C-/                   Deshacer cambio
+# <DEL>                 Eliminar caracter antes del cursor
+# C-d                   Eliminar siguiente caracter despues del cursor
+# M-<DEL>               Elimina la palabra antes del cursor
+# M-d                   Elimina la palabra siguiente al cursor
+# C-k                   Elimna desde el cursor hast el final de la linea
+# M-k                   Eliminar el resto del parrafor.
+# ESC-ESC-ESC cancelar
+# C+Space C+W           Eliminar seleccion
+# C-x  C-s              Guardar cambios
+# C-x C-f               Cambiar buffer
+# C-x C-b               Listar buffers
+# C-x 1                 Eliminar otras ventanas, dejar solo 1.
+# C-X derecha           Cambiar de buffer
+# C-X izq               Cambiar de buffer
+# C-z                   Exit
+# C-x 2                 Dividir ventana
+# C-x o                 Cambiar a la ventana de abajo
+
+# C-M <Command>         Cambiar la ventana de abajo
+
+# Search 
+# C-s                   Buscar  hacia adelante
+#    C-s                Buscar siguiente ocurrencia
+# C-r                   Buscar  hacia atras
+#    C-r                Buscar ocurrencia previa
+```
+
 
 
 ## VIM

@@ -8,4 +8,5 @@ RUN  apt update && \
         yes | unminimize && \
         mkdir -p /home/examples
 COPY ./examples /home/examples
+WORKDIR /home/examples
 CMD exec /bin/sh -c "trap : TERM INT; sleep 1d & wait"
