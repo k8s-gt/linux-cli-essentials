@@ -317,13 +317,15 @@ passwd
 passwd hr1
 passwd dev1
 passwd hr2
+passwd dev2
 passwd dev3
+
 
 # Desactivar usuario
 passwd -l hr2
 
 # Eliminar usuario
-userdel -r dev2
+userdel -r dev3
 
 
 # configurar consola
@@ -346,22 +348,22 @@ groupadd dev
 groupadd admin
 groupadd test
 
+
+# Eliminar grupo
+groupdel test
+
 # Listar grupos
 getent group  
-getent group "admin"
+getent group "dev"
 
 # Agregar  usuario a grupo
-# usermod -a -G GROUPNAME USERNAME
-usermod -a -G admin admin1  
-usermod -a -G admin admin2
+adduser dev1 dev
+adduser dev2 dev
+usermod -aG sudo dev2
 
 # Quitar grupo
 # deluser USER GROUPNAME
 deluser admin2 admin
-
-
-# Eliminar grupo
-groupdel test
 ```
 
 ## Revisar usuarios
@@ -388,6 +390,37 @@ id -g dev1
 | rename |	To rename file. |
 
 ```bash
-mkdir -p /etc/hr
-mkdir -p /etc/dev
+# Crear directorio para dev
+mkdir -p /tmp/dev
+# Cambiar permisos del directorio
+chgrp dev /tmp/dev -R
+# Ver permisos de la carpeta
+ls -al /tmp/dev
+
+# Crear archivos ejecutables
+cat << EOF > /tmp/dev/script_dev1.sh
+echo "hello world"
+EOF
+cat << EOF > /tmp/dev/script_dev2.sh
+echo "goodbye world"
+EOF
+# Ver permisos de la carpeta
+ls -al /tmp/dev
+
+# Asignar usuario y grupo
+chown dev1 /tmp/dev/script_dev1.sh
+chgrp dev /tmp/dev/script_dev1.sh
+chmod 700  /tmp/dev/script_dev1.sh
+# Archivo script 1 solo puede ser leido por el dev1
+chmod 740  /tmp/dev/script_dev1.sh
+
+
+# Asignar usuario y grupo
+chown dev2:dev /tmp/dev/script_dev2.sh
+chmod 765  /tmp/dev/script_dev2.sh
+```
+
+## Agregar usuario manualmente a sudoers
+```bash
+username ALL=(ALL) NOPASSWD:/bin/mkdir,/bin/rmdir
 ```
