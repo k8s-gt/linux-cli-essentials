@@ -303,9 +303,9 @@ ESC + :wq!
 ```bash
 # 
 adduser hr1
-adduser dev1
-adduser hr2
-adduser dev2
+adduser --disabled-password --gecos "" dev1
+adduser --disabled-password --gecos "" hr2
+adduser --disabled-password --gecos "" dev2
 
 # Cambiar password local
 passwd
@@ -376,10 +376,11 @@ id
 id -u user1  
 # uuid del grupo
 id -g javatpoint
-#   
+
 ```
 
 ## Dar permisos
+**Comandos para trabajar con archivos**
 | Command |	Description |
 | --- | --- |
 | file |	Determines file type. |
@@ -389,9 +390,7 @@ id -g javatpoint
 | mv |	To rename or to move a file. |
 | rename |	To rename file. |
 
-## Editar crudini
-
-
-
-# Links
-- https://phoenixnap.com/kb/linux-man 
+```bash
+mkdir -p /etc/hr
+mkdir -p /etc/dev
+```
