@@ -315,8 +315,9 @@ passwd
 
 # Cambiar password usuario
 passwd hr1
-passwd dev1
 passwd hr2
+
+passwd dev1
 passwd dev2
 passwd dev3
 
@@ -422,5 +423,15 @@ chmod 765  /tmp/dev/script_dev2.sh
 
 ## Agregar usuario manualmente a sudoers
 ```bash
-username ALL=(ALL) NOPASSWD:/bin/mkdir,/bin/rmdir
+# Caso 1
+adduser --disabled-password --gecos "" dev4=
+echo "dev4  ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/dev4
+# rm /etc/sudoers.d/dev4
+
+# Caso 2
+# as root  mkdir /tmp/permission
+# as dev4 rmdir /tmp/permission
+echo "dev4  ALL=(ALL) NOPASSWD:/bin/mkdir,/bin/rmdir" | sudo tee /etc/sudoers.d/dev4
+
+su dev4
 ```
