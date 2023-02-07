@@ -306,6 +306,9 @@ adduser hr1
 adduser --disabled-password --gecos "" dev1
 adduser --disabled-password --gecos "" hr2
 adduser --disabled-password --gecos "" dev2
+adduser --disabled-password --gecos "" dev3
+adduser --disabled-password --gecos "" admin1
+adduser --disabled-password --gecos "" admin2
 
 # Cambiar password local
 passwd
@@ -313,18 +316,18 @@ passwd
 # Cambiar password usuario
 passwd hr1
 passwd dev1
-
-
+passwd hr2
+passwd dev3
 
 # Desactivar usuario
-passwd -l 'username'
+passwd -l hr2
 
 # Eliminar usuario
-userdel -r 'username'
+userdel -r dev2
 
 
 # configurar consola
-usermod -s /bin/bash user2  
+usermod -s /bin/sh dev3  
 
 # Usuario puede cambiar consola
 chsh -s /bin/sh  
@@ -332,39 +335,33 @@ chsh -s /bin/sh
 
 ## Grupos en linux
 
-Types of Linux Groups
+En linux existen dos tipos de grupos:
+- `Grupos primarios`: Cuando creamos un archivo utilizando un usuario en especifico, por defecto el grupo del archivo es seteado al grupo primario del usuario. El grupo primario normalmente tiene el mismo nombre de la cuenta de usuario. La informacion del usuario es almacenada en el archivo  `/etc/passwd`.
+- `Grupos secundarios`: El objetivo principal de crear los grupos secundarios es darle permisos especificos a un conjunto de usuarios. Por ejemplo si queremos que cualquier usuario tenga permisos sudo entonces lo agregamos al grupo sudo. Mientras por ejemplo si queremos que pueda ejecutar docker lo agregamos al grupo de docker. 
+Un usuario puede ser asignado solamente a un grupo primario. Pero puede ser asignado desde 0 a hasta 15 grupos secundarios.
 
-In Linux-based system, there are two types of groups, which are:
-
-    Primary group
-    Secondary or supplementary group
-
-Primary group: When we create a file through a specific user account, by default, the filegroup is set to the user's primary group. It will provide the same name as the file user group as the user account name. The primary group stores the user information in /etc/passwd file.
-
-Secondary or supplementary group: The main motive to create a secondary group
-
-is to allow the specific permission to limited users. For example, if we want to add any user to the sudo group, the added user will inherit the sudo rights, and be able to run the sudo commands. If we add a user to the docker group, then it will inherit the properties of the docker group and be able to run the docker commands.
-
-A user can be added to precisely one primary group. It is not necessary to add a user to a secondary group, so a user can be added to zero or more secondary groups.
 ```bash
+groupadd hr
+groupadd dev
+groupadd admin
+groupadd test
+
 # Listar grupos
-groupmod "Press Tab key twice"
 getent group  
+getent group "admin"
 
 # Agregar  usuario a grupo
-usermod -a -G GROUPNAME USERNAME
-usermod -a -G jtpGroup, JtpGroup2, JtpGroup3 user1  
+# usermod -a -G GROUPNAME USERNAME
+usermod -a -G admin admin1  
+usermod -a -G admin admin2
 
 # Quitar grupo
-deluser USER GROUPNAME
+# deluser USER GROUPNAME
+deluser admin2 admin
 
-
-# Cambi9ar nombre de grupo
-groupmod -n <oldGroup> <newGroup>  
-gpasswd -d user1 jtpGroup  
 
 # Eliminar grupo
-groupdel <group>  
+groupdel test
 ```
 
 ## Revisar usuarios
@@ -373,9 +370,9 @@ man id
 
 id
 # uuid usuario
-id -u user1  
+id -u dev1  
 # uuid del grupo
-id -g javatpoint
+id -g dev1
 
 ```
 
