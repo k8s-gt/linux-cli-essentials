@@ -3,6 +3,22 @@
 - Editores de texto en linux
 - Manejo de usuarios y grupos en linux
 
+
+# Crear entorno de trabajo
+Descargar este repositorio y ejecutar los siguientes comandos bash:
+```bash
+# Cambiar de directorio
+cd ./04-text-editors-users
+# Construir imagen de contenedor
+docker build -t session4 . 
+# Detener y eliminar contenedor
+docker stop session4
+docker rm session4
+# Ejecutar contenedor. 
+docker run --name session4 -it session4 bash
+```
+
+
 # Que es man?
 Este comando se utiliza para obtener el manual de referencia de un comando o herramienta para correr en la línea de comandos. 
 
@@ -68,20 +84,6 @@ apt-get install gedit-plugins
 - Misspelled word: Subraya las palabras mal escritas.
 - Color picker: Muestra una tabla de colores e inserta el codigo hexadecimal.
 - Quick Highlight: Subraya todas las ocurrencias de la misma palabra.
-
-## Crear entorno de trabajo
-Descargar este repositorio y ejecutar los siguientes comandos bash:
-```bash
-# Cambiar de directorio
-cd ./04-text-editors-users
-# Construir imagen de contenedor
-docker build -t session4 . 
-# Detener y eliminar contenedor
-docker stop session4
-docker rm session4
-# Ejecutar contenedor. 
-docker run --name session4 -it session4 bash
-```
 
 ## Nano
 
