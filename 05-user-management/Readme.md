@@ -1,4 +1,5 @@
 # Sesion 5: Manejo de usuarios
+La presentacion utilizada durante la charla puedes verla en el [siguiente enlace](https://docs.google.com/presentation/d/1dApSFgxRcK3HkgoR9dnEYXSIqC2JQnVOFFuMGt100uY/edit?usp=sharing)
 # Crear entorno de trabajo
 Descargar este repositorio y ejecutar los siguientes comandos bash:
 ```bash
